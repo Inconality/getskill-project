@@ -12,17 +12,20 @@ return new class extends Migration
     public function up(): void
 {
     Schema::create('order_details', function (Blueprint $table) {
-        $table->id('id_detail'); // atau nama primary key tabel ini sendiri
+        $table->id('id_detail'); 
         
-    
-        $table->foreignId('pesanan_id')
-              ->constrained('orders', 'id_pesanan') 
+        // Relasi ke tabel orders (Foreign Key pesanan_id -> id_pesanan)
+        $table->unsignedBigInteger('pesanan_id');
+        $table->foreign('pesanan_id')
+              ->references('id_pesanan')
+              ->on('orders')
               ->onDelete('cascade');
 
-        // Pastikan juga jika ada foreign key ke tabel produk (contoh: produk_id), 
-        // sesuaikan nama primary key targetnya jika bukan bernama 'id'
-        $table->foreignId('produk_id')
-              ->constrained('products', 'id_produk') // Sesuaikan 'id_produk' jika di tabel produk Anda menggunakan custom nama id
+        // Relasi ke tabel products (Foreign Key produk_id -> id_produk)
+        $table->unsignedBigInteger('produk_id');
+        $table->foreign('produk_id')
+              ->references('id_produk')
+              ->on('products')
               ->onDelete('cascade');
 
         $table->integer('jumlah');

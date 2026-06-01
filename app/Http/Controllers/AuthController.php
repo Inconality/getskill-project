@@ -10,6 +10,7 @@ class AuthController extends Controller
     // Menampilkan halaman login
     public function showLogin()
     {
+        // PERBAIKAN: Sesuaikan dengan letak file kamu di folder admin.login
         return view('login'); 
     }
 
@@ -23,14 +24,15 @@ class AuthController extends Controller
 
         // Cek apakah email dan password benar
         if (Auth::attempt($credentials)) {
+            // Regenerasikan session untuk menghindari session fixation/expired
             $request->session()->regenerate();
 
-            // Berhasil login, lempar ke halaman admin/dashboard
-            return redirect()->intended('/admin/dashboard');
+            // PERBAIKAN: Berhasil login, lempar langsung ke halaman produk kamu
+            return redirect()->intended('/produk');
         }
 
         // Jika salah, kembali ke login dengan pesan error
-        return back()->with('error', 'Email atau password salah!');
+        return back()->with('error', 'Email atau password salah!')->withInput($request->only('email'));
     }
 
     // Memproses logout
