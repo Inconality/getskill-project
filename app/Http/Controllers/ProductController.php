@@ -8,14 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    // 1. READ: Menampilkan data di tabel (image_4e7407.png)
     public function index()
     {
         $products = Product::all();
         return view('admin.pages.produk.index', compact('products'));
     }
 
-    // 2. CREATE: Proses simpan data dari form tambah
     public function store(Request $request)
     {
         $request->validate([
@@ -28,7 +26,6 @@ class ProductController extends Controller
 
         $data = $request->all();
 
-        // Jika ada upload gambar
         if ($request->hasFile('gambar')) {
             $data['gambar'] = $request->file('gambar')->store('products', 'public');
         }
@@ -38,7 +35,6 @@ class ProductController extends Controller
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan!');
     }
 
-    // 3. UPDATE: Proses simpan perubahan dari form edit
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -52,7 +48,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $data = $request->all();
 
-        // Jika user upload gambar baru
         if ($request->hasFile('gambar')) {
             // Hapus gambar lama jika ada
             if ($product->gambar) {
@@ -66,12 +61,10 @@ class ProductController extends Controller
         return redirect()->route('produk.index')->with('success', 'Produk berhasil diubah!');
     }
 
-    // 4. DELETE: Proses hapus data
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
         
-        // Hapus gambar dari storage jika ada
         if ($product->gambar) {
             Storage::disk('public')->delete($product->gambar);
         }

@@ -1,60 +1,128 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Pemesanan - Tema KaiAdmin</title>
+{{-- SUDAH DIPERBAIKI: Mengarah ke file template utama Kaiadmin kamu yang benar --}}
+@extends('admin.layouts.app')
 
-    <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
-    <script>
-        WebFont.load({
-            google: {"families":["Public Sans:300,400,500,600,700"]},
-            custom: {"families":["Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], cols: ["{{ asset('assets/css/fonts.min.css') }}"]},
-            active: function() { sessionStorage.fonts = true; }
-        });
-    </script>
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}">
-</head>
-<body class="bg-light">
+@section('title', 'Form Pemesanan')
 
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card card-round shadow border-0">
-                    <div class="card-header bg-dark py-3">
-                        <h4 class="card-title text-white mb-0 fw-bold"><i class="fas fa-shopping-cart me-2"></i>Detail Formulir Pesanan</h4>
+@section('content')
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm p-4">
+
+                <h3 class="fw-bold text-success mb-4">
+                    Form Pemesanan
+                </h3>
+
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
+
+                @php
+                    $item = \App\Models\Product::first();
+                @endphp
+
+                @if($item)
+                    <div class="alert alert-info py-2">
+                        <strong>Produk:</strong> {{ $item->nama_produk ?? $item->nama }} <br>
+                        <strong>Harga Satuan:</strong> Rp <span id="harga">{{ number_format($item->harga, 0, ',', '.') }}</span>
                     </div>
-                    <div class="card-body p-4">
-                        <div class="p-3 bg-light rounded mb-4">
-                            <h5 class="mb-1 text-muted" style="font-size: 14px;">Produk Pilihan:</h5>
-                            <h4 class="fw-bold text-dark">{{ $produk->nama_produk }}</h4>
-                            <h3 class="text-success fw-bold mb-0">Rp {{ number_format($produk->harga, 0, ',', '.') }}</h3>
+
+                    <form action="{{ url('/pesan/store') }}" method="POST">
+                        @csrf
+
+                        <input type="hidden" name="produk_id" value="{{ $item->id }}">
+                        <input type="hidden" name="total_harga" id="total_harga_input" value="{{ $item->harga }}">
+
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" name="nama_pembeli" class="form-control" required>
                         </div>
 
-                        <form action="{{ route('user.pesan.proses', $produk->id_produk) }}" method="POST">
-                            @csrf
-                            <div class="form-group mb-3 px-0">
-                                <label for="jumlah_pesanan" class="form-label fw-bold">Jumlah Beli</label>
-                                <input type="number" name="jumlah_pesanan" id="jumlah_pesanan" class="form-control" min="1" max="{{ $produk->stok }}" placeholder="Masukkan jumlah..." required>
-                                <small class="text-muted">Maksimal pembelian sesuai sisa stok ({{ $produk->stok }} pcs)</small>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">No. WhatsApp</label>
+                            <input type="text" name="no_whatsapp" class="form-control" required>
+                        </div>
 
-                            <div class="form-group mb-4 px-0">
-                                <label for="catatan" class="form-label fw-bold">Catatan (Opsional)</label>
-                                <textarea name="catatan" id="catatan" class="form-control" rows="3" placeholder="Contoh: Tolong bungkus yang rapi..."></textarea>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Jumlah Pesanan</label>
+                            <input type="number" name="jumlah" id="jumlah" class="form-control @error('jumlah') is-invalid @enderror" value="{{ old('jumlah', 1) }}" min="1" required oninput="validasiJumlah(); hitung();">
 
-                            <div class="d-flex justify-content-between mt-4">
-                                <a href="{{ route('user.beranda') }}" class="btn btn-border btn-round btn-black btn-sm px-4">Kembali</a>
-                                <button type="submit" class="btn btn-success btn-round btn-sm px-4">Konfirmasi & Kirim</button>
+                            @error('jumlah')
+                            <div class="invalid-feedback">
+                                {{ $message }}
                             </div>
-                        </form>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Total Harga</label>
+                            <h3 class="text-success fw-bold">
+                                Rp <span id="total">{{ number_format($item->harga, 0, ',', '.') }}</span>
+                            </h3>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Alamat Pengiriman</label>
+                            <textarea name="alamat" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Metode Pembayaran</label>
+                            <select name="metode_pembayaran" class="form-select" readonly>
+                                <option value="COD">COD (Bayar di Tempat)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold">
+                            Konfirmasi Pesanan
+                        </button>
+
+                    </form>
+                @else
+                    <div class="alert alert-warning text-center">
+                        Belum ada data produk di database. Silakan isi data produk terlebih dahulu di halaman admin.
                     </div>
-                </div>
+                @endif
+
             </div>
         </div>
     </div>
+</div>
 
-</body>
-</html>
+<script>
+    function validasiJumlah() {
+        let jumlahInput = document.getElementById('jumlah');
+        if (jumlahInput.value < 1 || jumlahInput.value === '') {
+            jumlahInput.value = 1;
+        }
+    }
+
+    function hitung() {
+        let hargaElement = "{{ $item ? $item->harga : 0 }}";
+        let harga = parseInt(hargaElement);
+        let jumlahInput = document.getElementById('jumlah');
+        
+        if(!jumlahInput) return;
+        
+        let jumlah = parseInt(jumlahInput.value);
+
+        if (isNaN(jumlah) || jumlah < 1) {
+            jumlah = 1;
+        }
+
+        let total = harga * jumlah;
+
+        let totalElement = document.getElementById('total');
+        let inputHiddenElement = document.getElementById('total_harga_input');
+        
+        if(totalElement) totalElement.innerText = new Intl.NumberFormat('id-ID').format(total);
+        if(inputHiddenElement) inputHiddenElement.value = total;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        hitung();
+    });
+</script>
+@endsection
