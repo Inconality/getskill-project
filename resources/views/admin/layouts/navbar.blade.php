@@ -39,7 +39,7 @@
                         <div class="notif-center">
                             <a href="#">
                                 <div class="notif-img">
-                                    <img src="assets/img/jm_denis.jpg" alt="Img Profile">
+                                    <img src="{{asset('')}}assets/img/jm_denis.jpg" alt="Img Profile">
                                 </div>
                                 <div class="notif-content">
                                     <span class="subject">Jimmy Denis</span>
@@ -49,7 +49,7 @@
                             </a>
                             <a href="#">
                                 <div class="notif-img">
-                                    <img src="assets/img/chadengle.jpg" alt="Img Profile">
+                                    <img src="{{asset('')}}assets/img/chadengle.jpg" alt="Img Profile">
                                 </div>
                                 <div class="notif-content">
                                     <span class="subject">Chad</span>
@@ -59,7 +59,7 @@
                             </a>
                             <a href="#">
                                 <div class="notif-img">
-                                    <img src="assets/img/mlane.jpg" alt="Img Profile">
+                                    <img src="{{asset('')}}assets/img/mlane.jpg" alt="Img Profile">
                                 </div>
                                 <div class="notif-content">
                                     <span class="subject">Jhon Doe</span>
@@ -71,7 +71,7 @@
                             </a>
                             <a href="#">
                                 <div class="notif-img">
-                                  <img src="assets/img/talha.jpg" alt="Img Profile">
+                                  <img src="{{asset('')}}assets/img/talha.jpg" alt="Img Profile">
                                 </div>
                                 <div class="notif-content">
                                     <span class="subject">Talha</span>
@@ -96,8 +96,7 @@
             </a>
             <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                 <li>
-                    <div class="dropdown-title">
-You have 4 new notification</div>
+                    <div class="dropdown-title">You have 4 new notification</div>
                     </li>
                     <li>
                       <div class="notif-scroll scrollbar-outer">
@@ -125,7 +124,7 @@ You have 4 new notification</div>
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/profile2.jpg"
+                                src="{{asset('')}}assets/img/profile2.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -243,7 +242,7 @@ You have 4 new notification</div>
                   >
                     <div class="avatar-sm">
                       <img
-                        src="assets/img/profile.jpg"
+                        src="{{asset('')}}assets/img/profile.jpg"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
@@ -259,7 +258,7 @@ You have 4 new notification</div>
                         <div class="user-box">
                           <div class="avatar-lg">
                             <img
-                              src="assets/img/profile.jpg"
+                              src="{{asset('')}}assets/img/profile.jpg"
                               alt="image profile"
                               class="avatar-img rounded"
                             />
@@ -283,11 +282,17 @@ You have 4 new notification</div>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
-                        </li>
+                        
+                        <form action="{{ route('logout') }}" method="POST" class="dropdown-item p-0">
+                            @csrf
+                            <button type="submit" class="btn text-start w-100 px-3 py-2 text-danger" style="background: none; border: none; font-size: inherit; font-weight: inherit;">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </button>
+                        </form>
+                      </li>
                     </div>
-                </ul>
-            </li>
-        </ul>
+                  </ul>
+                </li>
+            </ul>
     </div>
 </nav>

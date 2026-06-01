@@ -3,7 +3,7 @@
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="dark">
       <a href="index.html" class="logo">
-        <img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20">
+        <img src="{{asset('')}}assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20">
       </a>
       <div class="nav-toggle">
         <button class="btn btn-toggle toggle-sidebar">
@@ -30,29 +30,32 @@
         </li>
         <li class="nav-item">
           <a href="{{ route('produk.index') }}">
-            <i class="fas fa-suitcase"></i>
+            <i class="fas fa-box"></i>
             <p>Produk</p>
           </a>
         </li>
+
         <li class="nav-item">
-          <a href="{{ route('produk.index') }}">
-            <i class="fas fa-address-book"></i>
+          <a href="{{ route('pelanggan.index') }}">
+            <i class="fas fa-users"></i>
             <p>Pelanggan</p>
           </a>
         </li>
+
         <li class="nav-item">
-          <a href="{{ route('produk.index') }}">
-            <i class="fas fa-desktop"></i>
+          <a href="{{ route('pesanan.index') }}">
+            <i class="fas fa-shopping-cart"></i>
             <p>Pesanan</p>
           </a>
         </li>
+
         <li class="nav-item">
-          <a href="{{ route('produk.index') }}">
-            <i class="fas fa-dollar-sign"></i>
+          <a href="{{ route('pembayaran.index') }}">
+            <i class="fas fa-money-bill-wave"></i>
             <p>Pembayaran</p>
           </a>
         </li>
-              <!-- <li class="nav-item">
+        <!-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLayouts">
                   <i class="fas fa-th-list"></i>
                   <p>Sidebar Layouts</p>
