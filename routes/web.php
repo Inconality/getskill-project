@@ -1,23 +1,19 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserpagesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/index', function () {
-    return view('admin.pages.home.index');
-});
+// Halaman User
+Route::get('/home', [UserpagesController::class, 'home'])->name('home');
+Route::get('/produk', [UserpagesController::class, 'produk'])->name('produk');
+Route::get('/tentang', [UserpagesController::class, 'tentang'])->name('tentang');
+Route::get('/kontak', [UserpagesController::class, 'kontak'])->name('kontak');
 
-Route::get('/home', function () {
-    return view('user.pages.home');
-});
-
-Route::get('/produk', function () {
-    return view('admin.pages.produk.index');
-})->name('produk.index');
 
 // Rute untuk Halaman Login
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -37,17 +33,16 @@ Route::middleware(['auth'])->group(function () {
 
     // TAMBAHKAN RUTE BARU DI SINI:
     Route::get('/pelanggan', function () {
-        return view('admin.pages.pelanggan.index'); // Pastikan file blade ini sudah dibuat
+        return view('admin.pages.pelanggan.index');
     })->name('pelanggan.index');
 
     Route::get('/pesanan', function () {
-        return view('admin.pages.pesanan.index'); // Pastikan file blade ini sudah dibuat
+        return view('admin.pages.pesanan.index');
     })->name('pesanan.index');
 
     Route::get('/pembayaran', function () {
-        return view('admin.pages.pembayaran.index'); // Pastikan file blade ini sudah dibuat
+        return view('admin.pages.pembayaran.index');
     })->name('pembayaran.index');
-
 
     // Proses Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

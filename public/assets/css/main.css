@@ -1,0 +1,48 @@
+/* Custom CSS untuk menyesuaikan tampilan */
+body {
+    background-color: #ffffff;
+    font-family: 'sans-serif';
+}
+.carousel-container {
+    max-width: 800px;
+    margin: 50px auto;
+    position: relative;
+}
+/* Mengubah warna panah control bawaan Bootstrap menjadi hitam */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1) grayscale(100%) brightness(0%);
+    width: 30px;
+    height: 30px;
+}
+/* Custom styling untuk teks diskon */
+.discount-text {
+    color: #d98236;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+.main-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #111;
+    line-height: 1.2;
+}
+/* Memastikan gambar sofa berukuran pas */
+.carousel-item img {
+    max-height: 400px;
+    object-fit: contain;
+}
+/* Tombol hitam kustom */
+.btn-dark-custom {
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 0;
+    padding: 10px 30px;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+.btn-dark-custom:hover {
+    background-color: #333333;
+    color: #fff;
+}
