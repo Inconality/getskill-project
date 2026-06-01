@@ -1,14 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toko Perkakas - Admin</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+    <h2 class="text-lg font-semibold text-gray-700 mb-2">
+        Selamat Datang, {{ Auth::user()->name }}!
+    </h2>
+    <p class="text-gray-600">Kamu berhasil masuk ke sistem admin.</p>
+</div>
+@endsection

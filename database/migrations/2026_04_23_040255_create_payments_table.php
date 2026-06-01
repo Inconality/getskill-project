@@ -10,17 +10,21 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->id('id_pembayaran')->primary();
-            $table->enum('metode', ['E-wallet', 'Paylater', 'CoD',]);
-            $table->date('tanggal_bayar');
+{
+    Schema::create('payments', function (Blueprint $table) {
+        $table->id('id_pembayaran'); // Atau apa pun nama primary key tabel ini
+        
+        // UBAH BAGIAN INI:
+        // Beritahu Laravel secara eksplisit bahwa primary key di tabel 'orders' adalah 'id_pesanan'
+        $table->foreignId('pesanan_id')
+              ->constrained('orders', 'id_pesanan') 
+              ->onDelete('cascade');
 
-            //kolom untuk foreign key
-            $table->foreignId('pesanan_id')->constrained('orders')->onDelete('cascade');
-            $table->timestamps();
-        });
-    }
+        // ... kolom lainnya seperti jumlah_bayar, metode_pembayaran, dll ...
+        
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

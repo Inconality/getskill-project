@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id('id_pesanan')->primary();
+            $table->id('id_pesanan');
             $table->date('tanggal_pesanan');
             $table->integer('total_harga');
 
             //kolom untuk foreign key
-            $table->foreignId('pelanggan_id')->constrained('costumers')->onDelete('cascade');
+            $table->foreignId('pelanggan_id')->constrained('costumers', 'id_pelanggan')->onDelete('cascade');
             $table->timestamps();
         });
     }
