@@ -1,0 +1,199 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #1a2a4a;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .navbar-brand {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .navbar-brand span { color: #4db8ff; }
+
+        .navbar-nav {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+        }
+
+        .navbar-nav a {
+            color: #ccc;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .navbar-nav a:hover,
+        .navbar-nav a.active {
+            background: #2d4a7a;
+            color: white;
+        }
+
+        main { min-height: calc(100vh - 60px - 50px); }
+
+        /* FOOTER */
+        footer {
+            background: #1a2a4a;
+            color: #aaa;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.82rem;
+        }
+
+.page-header {
+        background: #1a2a4a;
+        color: white;
+        padding: 25px 30px;
+    }
+
+    .page-header h2 {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+    }
+
+    .page-header p { color: #aaa; font-size: 0.85rem; }
+
+    .section {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .produk-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 20px;
+    }
+
+    .produk-card {
+        background: white;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .produk-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    /* GAMBAR PRODUK */
+    .produk-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .produk-img-placeholder {
+        width: 100%;
+        height: 180px;
+        background: #eef2f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        color: #ccc;
+    }
+
+    .produk-info {
+        padding: 14px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .produk-nama {
+        font-weight: bold;
+        font-size: 0.95rem;
+        color: #1a2a4a;
+    }
+
+    .produk-deskripsi {
+        font-size: 0.8rem;
+        color: #888;
+        line-height: 1.4;
+    }
+
+    .produk-harga {
+        color: #e74c3c;
+        font-weight: bold;
+        font-size: 1.05rem;
+    }
+
+    .produk-stok {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+        border-radius: 12px;
+        display: inline-block;
+        width: fit-content;
+    }
+
+    .stok-aman    { background: #e8f5e9; color: #2e7d32; }
+    .stok-sedikit { background: #fff3e0; color: #e65100; }
+    .stok-habis   { background: #f5f5f5; color: #999; }
+
+    .btn-pesan {
+        margin-top: auto;
+        padding: 9px;
+        background: #1a2a4a;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.88rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+        width: 100%;
+    }
+
+    .btn-pesan:hover:not(:disabled) { background: #2d4a7a; }
+    .btn-pesan:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* NOTIFIKASI */
+    .notif {
+        position: fixed;
+        top: 70px;
+        right: 20px;
+        background: #1a2a4a;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 0.88rem;
+        border-left: 4px solid #4db8ff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: opacity 0.3s, transform 0.3s;
+        z-index: 9999;
+    }
+
+    .notif.show { opacity: 1; transform: translateY(0); }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #aaa;
+        grid-column: 1 / -1;
+    }
