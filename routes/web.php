@@ -6,10 +6,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', function () {
+Route::get('/admin/index', function () {
     return view('admin.pages.home.index');
 });
 
-Route::get('/produk', function () {
+Route::get('/admin/produk', function () {
     return view('admin.pages.produk.index');
 })->name('produk.index');
+
+Route::get('/home', function () {
+    return view('user.pages.home');
+});
