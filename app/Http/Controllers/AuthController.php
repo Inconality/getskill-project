@@ -28,7 +28,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // PERBAIKAN: Berhasil login, lempar langsung ke halaman produk kamu
-            return redirect()->intended('/produk');
+            return redirect()->intended('/admin/dashboard');
         }
 
         // Jika salah, kembali ke login dengan pesan error

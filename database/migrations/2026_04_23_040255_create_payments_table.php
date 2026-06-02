@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
 {
     Schema::create('payments', function (Blueprint $table) {
-        $table->id('id_pembayaran'); // Atau apa pun nama primary key tabel ini
-        
-        // UBAH BAGIAN INI:
+        $table->id('id_pembayaran');
+
         // Beritahu Laravel secara eksplisit bahwa primary key di tabel 'orders' adalah 'id_pesanan'
         $table->foreignId('pesanan_id')
               ->constrained('orders', 'id_pesanan') 

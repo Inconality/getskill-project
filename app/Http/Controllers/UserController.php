@@ -19,6 +19,12 @@ class UserController extends Controller
         $produk = Product::all();
         return view('welcome_produk', compact('produk'));
     }
+    public function tentang(){
+        return view('welcome_tentang');
+    }
+    public function kontak(){
+        return view('welcome_kontak');
+    }
     public function formPesan($id)
     {
         $produk = Product::where('id_produk', $id)->firstOrFail(); 
